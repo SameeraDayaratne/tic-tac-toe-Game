@@ -10,22 +10,31 @@ const initialGameBoard = [
 
 const GameBoard = (props) => {
 
-  
-  const [gameBoard, setGameBoard] = useState(initialGameBoard);
+  let gameBoard = initialGameBoard;
 
-  function handleClick(row, col) {
+  for(const turn of props.turnsArr )
+  {
+    let row = turn.position.row;
+    let col = turn.position.col;
+    
+    gameBoard[row][col] = turn.player;
+
+  }
+//   const [gameBoard, setGameBoard] = useState(initialGameBoard);
+
+//   function handleClick(row, col) {
 
     
 
-    setGameBoard((prev) => {
-      const updatedBoard = [...prev.map((innerArray) => [...innerArray])];
-      updatedBoard[row][col] = props.curPlayer;
-      return updatedBoard;
-    });
+//     setGameBoard((prev) => {
+//       const updatedBoard = [...prev.map((innerArray) => [...innerArray])];
+//       updatedBoard[row][col] = props.curPlayer;
+//       return updatedBoard;
+//     });
 
-    props.onButtonClick();
+//     props.onButtonClick();
 
-  }
+//   }
 
   return (
     <ol id="game-board">
@@ -34,7 +43,7 @@ const GameBoard = (props) => {
           <ol>
             {row.map((col, colIndex) => (
               <li key={colIndex}>
-                <button onClick={() => handleClick(rowIndex, colIndex)}>
+                <button onClick={() => props.onButtonClick(rowIndex, colIndex)}>
                   {col}
                 </button>
               </li>

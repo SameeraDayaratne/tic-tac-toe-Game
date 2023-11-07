@@ -1,12 +1,30 @@
 import { useState } from "react";
 import Player from "./components/Player";
 import GameBoard from "./components/GameBoard";
+import Log from "./components/Log";
 function App() {
 
   const [player , setPlayer] = useState('X');
+  const [turns , setTurns] = useState([]);
 
-  function handleClick(){
+  function handleClick(rowIndex,colIndex){
     setPlayer(currentPlayer => currentPlayer === 'X' ? 'O' : 'X')
+    
+    setTurns(prevTurn => {
+
+      let activePlayer = 'X';
+
+      if(prevTurn.length > 0 && prevTurn[0].player === activePlayer)
+      {
+        activePlayer = 'O';
+      }
+
+      let updatedTurn = [{position : {row:rowIndex , col: colIndex} , player: activePlayer}, ...prevTurn];
+
+      return updatedTurn;
+
+    })
+
   }
 
   return (
@@ -17,8 +35,9 @@ function App() {
           <Player name="Player 2" symbol="O" curPlayer={player}></Player>
           
         </ol>
-        <GameBoard curPlayer={player} onButtonClick={handleClick}></GameBoard>
+        <GameBoard curPlayer={player} onButtonClick={handleClick} turnsArr={turns}></GameBoard>
       </div>
+    <Log turnsArr={turns}></Log>
     </main>
   );
 }
