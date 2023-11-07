@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Player = ({name,symbol,curPlayer}) => {
+const Player = ({name,symbol,curPlayer,onPlayerSave}) => {
 
    let highlightClass = 'active';
    if(curPlayer == symbol)
@@ -17,7 +17,7 @@ const Player = ({name,symbol,curPlayer}) => {
     
     const handleKeyPress = (event) => {
         setPlayerName(event.target.value);
-        
+        onPlayerSave(event.target.value);
     }
 
   const [isEditing , setIsEditing] = useState(false);

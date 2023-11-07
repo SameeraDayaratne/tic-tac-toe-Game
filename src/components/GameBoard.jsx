@@ -1,25 +1,12 @@
 import React, { useState } from "react";
 
-const initialGameBoard = [
-  [null, null, null],
-  [null, null, null],
-  [null, null, null],
-];
+
 
 
 
 const GameBoard = (props) => {
 
-  let gameBoard = initialGameBoard;
-
-  for(const turn of props.turnsArr )
-  {
-    let row = turn.position.row;
-    let col = turn.position.col;
-    
-    gameBoard[row][col] = turn.player;
-
-  }
+  
 //   const [gameBoard, setGameBoard] = useState(initialGameBoard);
 
 //   function handleClick(row, col) {
@@ -38,12 +25,12 @@ const GameBoard = (props) => {
 
   return (
     <ol id="game-board">
-      {gameBoard.map((row, rowIndex) => (
+      {props.board.map((row, rowIndex) => (
         <li key={rowIndex}>
           <ol>
             {row.map((col, colIndex) => (
               <li key={colIndex}>
-                <button onClick={() => props.onButtonClick(rowIndex, colIndex)}>
+                <button onClick={() => props.onButtonClick(rowIndex, colIndex)} disabled={col != null}>
                   {col}
                 </button>
               </li>
