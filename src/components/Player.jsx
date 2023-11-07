@@ -1,11 +1,18 @@
 import { useState } from "react";
 
-const Player = ({name,symbol}) => {
+const Player = ({name,symbol,curPlayer}) => {
 
-   
+   let highlightClass = 'active';
+   if(curPlayer == symbol)
+   {
+    highlightClass = 'active';
+   }
+   else{
+    highlightClass = '';
+   }
     
     const handleClick = () => {
-        setIsEditing(editing => !isEditing);
+        setIsEditing(editing => !editing);
     }
     
     const handleKeyPress = (event) => {
@@ -23,7 +30,7 @@ const Player = ({name,symbol}) => {
   }
 
   return (
-    <li>
+    <li className={highlightClass}>
       <span className="player">
         {playerNameContent}
         <span className="player-symbol">{symbol}</span>
